@@ -8,7 +8,7 @@ Users
 {
     
     username: string,  *REQUIRED*   
-    email: string, 
+    email: string, *REQUIRED*
     password: string  *REQUIRED*
     
 }
@@ -17,7 +17,6 @@ Strain
     user_id: int,               *REQUIRED*
     strain_name: string,        *REQUIRED*
     strain_type: string,        *REQUIRED*
-    strain_description: string, *REQUIRED*
 }
 
 Endpoints
