@@ -6,75 +6,57 @@ const jwt = require('jsonwebtoken'); // -> npm i jsonwebtoken if not done so alr
 const Users = require('../users/user-model');
 const secrets = require('../api/secret');
 
-//function to generate tokens for the client
-function generateToken(user) {
-    //the data
-    const payload = {
-        userId: user.id,
-        username: user.username,
-    };
-    const secret = secrets.jwtSecret;
-    const options = {
-        expiresIn: '1d',
-    };
-    return jwt.sign(payload, secret, options);
-}
 
 /** ENDPOINTS */
 
 //Register User
 router.post('/register', (req, res) => {
-    //set user to username and password via req.body
     let user = req.body;
 
-    //set up the security hash rounds
     const rounds = process.env.HASH_ROUNDS || 8;
 
-    //hash the password
     const hash = bcrypt.hashSync(user.password, rounds);
 
-    //update the user to use the hash
     user.password = hash;
 
-    //add the user
-    Users.add(user)
+    Users.insert(user)
         .then(saved => {
-            //if successful
-            res.status(201).json(saved);
+            res.status(201).json({ status: 201, message: `Welcome ${user.username}`, hash});
         })
         .catch(error => {
-            //if failed to add to the server
             res.status(500).json({ errorMessage: error.message});
         });
 });
 
 //Login
 router.post('/login', (req, res) => {
-    //set up the username and password objects to be checked against the login info
     let { username, password } = req.body;
 
-    //search for the user using the username
-    Users.findBy({username})
-        .then(([user]) => {
-            // if the username is found, check to see if the passwords match
+    Users.findBy({ username })
+        .first()
+        .then(user => {
+            console.log('then', user)
             if (user && bcrypt.compareSync(password, user.password)) {
-                //generate a token for the user
-                const token = generateToken(user);
+                // sign token
+                const token = generateToken(user); // new line
 
-                //send the token to the client
-                res.status(200).json({message: 'logged in!', token});
+                // send the token
+                res.status(200).json({
+                    id: user.id,
+                    token, // added token as part of the response sent
+                    message: `Welcome ${user.username}!`,
+                });
             } else {
-                //if the password does not match
-                res.status(401).json({message: 'wrong password.'});
+                console.log(user, username, password);
+                res.status(401).json({ message: "Invalid Credentials" });
             }
         })
-        //if the client cannot be found
-        .catch(err => {
-            res.status(500).json({errorMessage: err.message});
+        .catch(error => {
+            res.status(500).json(error);
         });
 });
 
-router.get("/logout", (req, res) => {
+router.get('/logout', (req, res) => {
     if (req.session) {
         req.session.destroy(error => {
             if (error) {
@@ -91,5 +73,17 @@ router.get("/logout", (req, res) => {
     }
 });
 
+function generateToken(user) {
+    //the data
+    const payload = {
+        subject: user.id,
+        username: user.username,
+    };
+    const secret = secrets.jwtSecret;
+    const options = {
+        expiresIn: '1d',
+    };
+    return jwt.sign(payload, secret, options);
+}
 //export
 module.exports = router
