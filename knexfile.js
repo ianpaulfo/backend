@@ -30,7 +30,7 @@ module.exports = {
     client: 'pg',
     connection: {
       filename: './data/users.db3'
-    }
+    },
     migrations: { directory: "./migrations" },
     seeds: { directory: "./seeds" }
   }
