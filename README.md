@@ -1,77 +1,100 @@
-# backend
-Back end repo
+# BackEnd
 
-*Models*
+## Deployed Database URL:
+### https://medcabinet-backend-lambda.herokuapp.com/
 
-Users
+## Models
+
+### Users
+
+```
 {
     
     username: string,  *REQUIRED*   
-    email: string,  *REQUIRED* 
+    email: string,  *REQUIRED*   
     password: string  *REQUIRED*
     
 }
+```
 
-*Endpoints*
+# Endpoints
 
-Users
-Request Type	Endpoint	Description
-POST	/api/auth/register	Creates User
-POST	/api/auth/login	    Creates JWT
-GET	    /api/auth/logout	logs out of session
-GET	    /api/users/:id	    Returns User By ID
-PUT	    /api/users/:id	    Update User
-DELETE	/api/users/:id	    Remove User
+## Users
+
+| Request Type | Endpoint                       | Description             |
+|:------------:|:------------------------------:|:-----------------------:|
+| POST         | /api/auth/register                  | Creates User            |
+| POST         | /api/auth/login                     | Creates JWT             |
+| GET          | /api/auth/logout                    | logs out of session      |
+| GET          | /api/users                     | Returns Users           |
+| GET          | /api/users/:id                 | Returns User By ID      |
+| PUT          | /api/users/:id                 | Update User             |
+| DELETE       | /api/users/:id                 | Remove User             |
 
 
-API
+# API
 
-*Auth Routes*
+## Auth Routes:
 
-POST:
-/api/register
+### POST
+`/api/register`
 
-Expects Following Shape
+- Expects Following Shape
 
+```
 {
     username: string, *REQUIRED*
+    email: string,  *REQUIRED*   
     password: string,  *REQUIRED*
     
 }
+```
 
-/api/login
+`/api/login`
 
-Expects Following Shape
+- Expects Following Shape
 
+```
 {
-    email: string,   *REQUIRED*
+    username: string,   *REQUIRED*
     password: string *REQUIRED*
 }
+```
 
-*User Routes*
+## User Routes
 
-GET:
-api/users
+### GET
 
-Returns All Users In Database
+`api/users`
 
-    api/users/:id
+- Returns All Users In Database
 
-Returns User That Matches ID
+`api/users/:id`
 
-PUT:
-api/users/:id
+- Returns User That Matches ID
 
-Updates User Information
+### PUT
 
-Expects Following Shape, Only One Field Required
+`api/users/:id`
 
+- Updates User Information
+
+- Expects Following Shape, Only One Field Required
+
+```
 {
     username: string,  *OPTIONAL*
-    password: string,  *OPTIONAL*    
+    email: string,  *OPTIONAL*   
+    password: string,  *OPTIONAL*
+    
 }
+```
 
-Delete:
-api/users/:id
+### Delete
 
-Removes User From Database That Matches ID
+`api/users/:id`
+
+- Removes User From Database That Matches ID
+
+## Strain Routes
+
