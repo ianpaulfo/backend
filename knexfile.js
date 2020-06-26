@@ -26,21 +26,21 @@ module.exports = {
     }
   },
 
-//   production: {
-//     client: 'pg',
-//     connection: process.env.DATABASE_URL,
-//     migrations: { directory: "./migrations" },
-//     seeds: { directory: "./seeds" }
-//   }
-// };
+  production: {
+    client: 'pg',
+    connection: process.env.DATABASE_URL,
+    migrations: { directory: "./migrations" },
+    seeds: { directory: "./seeds" }
+  }
+};
 
-production: {
-  client: 'sqlite3',
-  useNullAsDefault: true,
-  connection: {
-    filename: './data/users.db3'
-    }
-  },
+// production: {
+//   client: 'sqlite3',
+//   useNullAsDefault: true,
+//   connection: {
+//     filename: './data/users.db3'
+//     }
+//   },
 
   testing: {
     client: "sqlite3",
