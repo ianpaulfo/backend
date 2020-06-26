@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require('cors');
 const helmet = require('helmet');
+const dotenv = require('dotenv');
 
 const usersRouter = require('../users/user-router');
 const authRouter = require('../auth/auth-router');
@@ -11,7 +12,7 @@ const server = express();
 server.use(helmet());
 server.use(cors());
 server.use(express.json());
-
+server.use(dotenv.config());
 
 server.use('/api/users', authenticator, usersRouter);
 server.use('/api/auth', authRouter);
