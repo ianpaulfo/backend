@@ -6,7 +6,8 @@
   "scripts": {
     "server": "nodemon index.js",
     "start": "node index.js",
-    "db:seed": "knex seed:run"
+    "db:seed": "knex seed:run",
+    "test": "jest --watch"
   },
   "repository": {
     "type": "git",

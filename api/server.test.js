@@ -13,11 +13,11 @@ describe("GET /", function () {
             });
     });
 
-    it("should return a JSON", function () {
+    it("should return a text/html", function () {
         return request(server)
             .get("/")
             .then(res => {
-                expect(res.type).toMatch(/json/i);
+                expect(res.type).toMatch("text/html");
             });
     });
 

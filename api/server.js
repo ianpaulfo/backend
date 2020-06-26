@@ -12,7 +12,6 @@ const server = express();
 server.use(helmet());
 server.use(cors());
 server.use(express.json());
-server.use(dotenv.config());
 
 server.use('/api/users', authenticator, usersRouter);
 server.use('/api/auth', authRouter);
