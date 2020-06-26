@@ -96,5 +96,4 @@
 
 - Removes User From Database That Matches ID
 
-## Strain Routes
 
