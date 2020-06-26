@@ -39,5 +39,6 @@ production: {
   useNullAsDefault: true,
   connection: {
     filename: './data/users.db3'
+    }
   }
 }
